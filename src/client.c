@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 17:58:52 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/05/09 16:13:00 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/05/09 19:47:52 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 {
 	if (argc != 3)
 	{
-		ft_printf("%d", "Communication requires exactly two arguments\n");
+		ft_printf("Communication requires exactly two arguments\n");
 		return (1);
 	}
 	g_client.server_pid = atoi(argv[1]);

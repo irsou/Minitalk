@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 17:58:48 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/05/09 16:08:47 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/05/09 19:33:42 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_signal(int signal)
 	if (signal == SIGUSR2)
 		g_server.current_char = g_server.current_char | 1;
 	g_server.bit_count++;
-	if (*(g_server.bit_count) == 8)
+	if (g_server.bit_count == 8)
 	{
 		write(1, &g_server.current_char, 1);
 		if (g_server.current_char == '\0')
