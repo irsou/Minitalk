@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: isousa-s <isousa-s@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 17:58:48 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/05/08 19:28:39 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:08:47 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minitalk.h"
+#include "minitalk.h"
 
 static t_server_data	g_server;
 
-void handle_signal(int signal)
+void	handle_signal(int signal)
 {
 	g_server.current_char = g_server.current_char << 1;
 	if (signal == SIGUSR2)
 		g_server.current_char = g_server.current_char | 1;
 	g_server.bit_count++;
-	if (g_server.bit_count == 8)
+	if (*(g_server.bit_count) == 8)
 	{
 		write(1, &g_server.current_char, 1);
 		if (g_server.current_char == '\0')
@@ -30,13 +30,14 @@ void handle_signal(int signal)
 	}
 }
 
-int main(void)
+int	main(void)
 {
-	pid_t pid;
+	pid_t	pid;
+
 	g_server.current_char = 0;
 	g_server.bit_count = 0;
 	pid = getpid();
-	printf("Server PID: %d\n", pid);
+	ft_printf("Server PID: %d\n", pid);
 	signal(SIGUSR1, handle_signal);
 	signal(SIGUSR2, handle_signal);
 	while (1)

@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:01:16 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/03/23 17:49:04 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:10:16 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,32 +76,32 @@ static char	*get_line(char *storage)
 	return (line);
 }
 
-static char	*update_storage(char *storage)
+static char	*update_storage(char *sto)
 {
 	char	*new_sto;
 	int		pos_s;
 	int		pos_new;
 
 	pos_s = 0;
-	while (storage[pos_s] && storage[pos_s] != '\n')
+	while (sto[pos_s] && sto[pos_s] != '\n')
 		pos_s++;
-	if (!storage[pos_s])
+	if (!sto[pos_s])
 	{
-		free(storage);
+		free(sto);
 		return (NULL);
 	}
-	new_sto = (char *)malloc(sizeof(char) * (ft_strlen(storage) - pos_s + 1));
+	new_sto = (char *)malloc(sizeof(char) * (ft_strlen_gnl(sto) - pos_s + 1));
 	if (!new_sto)
 	{
-		free(storage);
+		free(sto);
 		return (NULL);
 	}
 	pos_s++;
 	pos_new = 0;
-	while (storage[pos_s])
-		new_sto[pos_new++] = storage[pos_s++];
+	while (sto[pos_s])
+		new_sto[pos_new++] = sto[pos_s++];
 	new_sto[pos_new] = '\0';
-	free(storage);
+	free(sto);
 	return (new_sto);
 }
 

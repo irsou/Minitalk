@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:03:26 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/03/23 09:47:00 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:47:24 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_gnl_strchr(char *s, int c)
 	return (NULL);
 }
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen_gnl(const char *str)
 {
 	size_t		position;
 
@@ -55,7 +55,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	if (!s2)
 		return (NULL);
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	str = malloc(ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1);
 	if (!str)
 		return (free(s1), NULL);
 	pos_s1 = -1;
