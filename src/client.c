@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 17:58:52 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/05/10 10:10:15 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:16:17 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	send_char(pid_t server_pid, unsigned char c)
 		i--;
 		bit = (c >> i) & 1;
 		send_bit(server_pid, bit);
-		usleep(5000);
+		usleep(150);
 	}
 }
 
