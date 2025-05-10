@@ -3,62 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isousa-s <isousa-s@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 17:58:52 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/05/09 19:47:52 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/05/10 10:10:15 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static t_client_data	g_client;
-
-void	send_char(unsigned char c)
+void	send_bit(pid_t server_pid, int bit)
 {
-	int								i;
-	unsigned char		bit;
+	int		signal;
+	int		result;
+
+	if (bit == 0)
+		signal = SIGUSR1;
+	else
+		signal = SIGUSR2;
+	result = kill(server_pid, signal);
+	if (result == -1)
+	{
+		ft_printf("Failed to send signal to server\n");
+		exit (1);
+	}
+}
+
+void	send_char(pid_t server_pid, unsigned char c)
+{
+	unsigned char	bit;
+	int				i;
 
 	i = 8;
 	while (i > 0)
 	{
 		i--;
 		bit = (c >> i) & 1;
-		if (bit == 0)
-			kill(g_client.server_pid, SIGUSR1);
-		else
-			kill(g_client.server_pid, SIGUSR2);
-		usleep(100);
+		send_bit(server_pid, bit);
+		usleep(5000);
 	}
 }
 
-void	send_string(void)
+void	send_string(pid_t server_pid, char *message)
 {
 	int	i;
 
 	i = 0;
-	while (g_client.message[i])
+	while (message[i])
 	{
-		send_char(g_client.message[i]);
+		send_char(server_pid, message[i]);
 		i++;
 	}
-	send_char('\0');
+	send_char(server_pid, '\0');
 }
 
 int	main(int argc, char **argv)
 {
+	pid_t	server_pid;
+
 	if (argc != 3)
 	{
 		ft_printf("Communication requires exactly two arguments\n");
 		return (1);
 	}
-	g_client.server_pid = atoi(argv[1]);
-	if (g_client.server_pid <= 0)
+	server_pid = atoi(argv[1]);
+	if (server_pid <= 0)
 	{
-		ft_printf("Invalid PID");
+		ft_printf("Invalid PID\n");
 		return (1);
 	}
-	g_client.message = argv[2];
-	send_string();
+	send_string(server_pid, argv[2]);
 	return (0);
 }
